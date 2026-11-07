@@ -9,26 +9,47 @@
   <img src="Images/Aircraft/aircraft-cad-main.png" alt="Water-propelled rocket–glider CAD concept" width="750" />
 </p>
 
+## Mission and flight path
+
+The competition challenged student teams to maximize **flight range, endurance and liquid payload capacity** while limiting the destabilizing effects of water sloshing. The rocket–glider was designed to launch nearly vertically and return in a gliding descent, without a parachute.
+
+The mission concept consists of three successive phases:
+
+1. **Rocket ascent** — a near-vertical, water-powered climb towards apogee.
+2. **Transition (slide)** — a nose-down descent that builds the airspeed required to generate lift.
+3. **Gliding descent** — a pitch-up transition into a lift-supported flight path to extend horizontal range.
+
+<p align="center">
+  <img src="https://blogs.mathworks.com/student-lounge/files/2025/01/25jan7_1.png" alt="Desired rocket–glider flight path showing ascent, transition and gliding descent" width="610" />
+</p>
+<p align="center"><em>Target flight profile: ascent → airspeed-building transition → glide. This is a design objective, not a measured trajectory.</em></p>
+
 ## Engineering Report & Presentation
 
-These two principal works document the engineering development and the final competition presentation, respectively. They are placed here for direct access before the technical overview.
+The two main written works produced for the competition are available here, before the technical highlights.
 
 | Engineering report | Final presentation |
 |---|---|
 | [**Design, Testing and Development of a Water-Rocket Glider**](Engineering-Report-and-Presentation/Engineering-Report.pdf) | [**AIRSloths — Airbus Sloshing Rocket Workshop 2023**](Engineering-Report-and-Presentation/Final-Presentation.pdf) |
-| Engineering decisions, models, tank-design studies, prototype construction, experiments and lessons learned. | Design approach, sloshing analyses, control concept, manufacturing and final workshop presentation. |
+| **114 pages** — engineering decisions, modelling, tank-design studies, prototype construction and experiments. | **38 slides** — design approach, sloshing analysis, control concept, manufacturing and final workshop presentation. |
 
-## Mission and aircraft concept
+## Aircraft concept — variable-geometry tail
 
-The competition challenged student teams to maximize **flight range, endurance and liquid payload capacity** while managing the destabilizing motion of water in an unpressurized tank. The aircraft needed to launch near vertically and descend without a parachute.
+A key challenge was meeting two different aerodynamic requirements with the same vehicle: preserve a suitable attitude during the rocket-powered ascent, then generate a controllable **pitch-up moment** for the glide. The team therefore designed a **deployable inverted V-tail with variable dihedral**.
 
-The rocket–glider was developed around **three flight phases**: (1) a rocket-powered ascent, (2) a nose-down transition that builds airspeed after apogee, and (3) a gliding descent. Its **variable-dihedral inverted V-tail** was designed to change its aerodynamic contribution between rocket and glider configurations, providing a controllable pitch-up moment during the transition.
+During the transition, opening the tail changes the orientation of the aerodynamic forces acting on its two surfaces. Their lateral components oppose one another in the symmetric configuration, while their vertical components contribute to tail downforce and the associated pitch-up moment.
 
 <p align="center">
-  <img src="Images/Control/variable-v-tail-forces.png" alt="Rear view of variable inverted V-tail and aerodynamic force components" width="570" />
+  <img src="Images/Control/variable-v-tail-forces.png" alt="Rear-view free-body diagram showing aerodynamic force components on the variable inverted V-tail" width="740" />
 </p>
+<p align="center"><em>Rear-view force decomposition: tail opening changes the vertical contribution of aerodynamic loading.</em></p>
 
-*Variable tail geometry: changing the opening angle adjusts the vertical component of tail downforce and the resulting pitching moment.*
+The overall longitudinal force and moment balance was also considered alongside the wing position, forward-mounted sloshing tank and changing center of gravity. The diagram below illustrates the aerodynamic and weight forces used to reason about the aircraft's pitching behaviour.
+
+<p align="center">
+  <img src="Images/Control/flight-force-balance.png" alt="Aircraft side-view force diagram used to assess longitudinal pitching moments" width="420" />
+</p>
+<p align="center"><em>Longitudinal force balance and pitching-moment concept.</em></p>
 
 ## Engineering development
 
@@ -36,11 +57,17 @@ The rocket–glider was developed around **three flight phases**: (1) a rocket-p
 
 The team coupled **Digital DATCOM+** aerodynamic estimates with a **MATLAB flight-dynamics model** to compare configurations, compute mass properties, evaluate longitudinal flight behavior, and refine the geometry. The initial **1.60 m wingspan / 0.35 m chord** did not generate sufficient simulated lift for the desired gliding phase. Design iterations increased these dimensions to approximately **2.00 m / 0.45 m**; the final validation table reports a **2.03 m** span.
 
-<p align="center">
-  <img src="Images/Aerodynamics/naca-6409-polars.png" alt="NACA 6409 aerodynamic polars" width="590" />
-</p>
+#### Wing airfoil selection — NACA 6409
 
-The NACA 6409 was selected for the main wing. The [archived DATCOM data](Aerodynamic-Data/DATCOM/) include rocket mode and eight labelled glider-mode cases (10°, 20°, 30°, 40°, 50°, 60°, 70° and 75°). Available native input files and aerodynamic outputs are preserved; some cases have fewer export formats than others. See the [data guide](Aerodynamic-Data/README.md) for scope and caveats.
+The team initially considered symmetric airfoils, but simulations showed that the available lift was inadequate for the intended glide. The **NACA 6409** was selected for its low-speed aerodynamic behaviour and compatibility with the Digital DATCOM+ analysis workflow.
+
+| Aerodynamic characteristics | Design rationale |
+|:---:|---|
+| <img src="Images/Aerodynamics/naca-6409-polars.png" alt="NACA 6409 airfoil aerodynamic polar plots" width="340" /> | **Why this airfoil?**<br><br>**Low-speed flight:** the main wing had to develop sufficient lift after the post-apogee transition.<br><br>**Aerodynamic assessment:** polar curves supported the choice of section and the evaluation of the gliding configuration.<br><br>**Design iteration:** wing chord grew from **0.35 to 0.45 m** and span from **1.60 to 2.00 m** in the simulation-led design process. |
+
+<p align="center"><em>NACA 6409 aerodynamic characteristics used during preliminary wing design (original competition material).</em></p>
+
+The [archived DATCOM data](Aerodynamic-Data/DATCOM/) include rocket mode and eight labelled glider-mode cases (10°, 20°, 30°, 40°, 50°, 60°, 70° and 75°). Available native input files and aerodynamic outputs are preserved; some cases have fewer export formats than others. See the [data guide](Aerodynamic-Data/README.md) for scope and caveats.
 
 **Related work:** [Simulating Water-Propelled Aircraft for Airbus Sloshing Rocket Workshop — MathWorks Student Blog](https://blogs.mathworks.com/student-lounge/2025/01/07/simulating-water-propelled-aircraft-for-airbus-sloshing-rocket-workshop/), presenting the flight-modelling work developed by **Piercarlo Mirto and Vincenzo Junior Di Rosa**.
 
