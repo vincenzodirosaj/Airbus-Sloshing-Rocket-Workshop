@@ -16,7 +16,7 @@ These two principal works document the engineering development and the final com
 | Engineering report | Final presentation |
 |---|---|
 | [**Design, Testing and Development of a Water-Rocket Glider**](Engineering-Report-and-Presentation/Engineering-Report.pdf) | [**AIRSloths — Airbus Sloshing Rocket Workshop 2023**](Engineering-Report-and-Presentation/Final-Presentation.pdf) |
-| **114 pages** — engineering decisions, models, tank-design studies, prototype construction, experiments and lessons learned. | **38 slides** — design approach, sloshing analyses, control concept, manufacturing and final workshop presentation. |
+| Engineering decisions, models, tank-design studies, prototype construction, experiments and lessons learned. | Design approach, sloshing analyses, control concept, manufacturing and final workshop presentation. |
 
 ## Mission and aircraft concept
 
